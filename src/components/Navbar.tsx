@@ -20,7 +20,7 @@ const Navbar = () => {
           Enable KYC
         </button>
         {isKycEnabled && <span className={styles.kycButtonEnabled}>KYC Verified</span>}
-        <ConnectButton />
+        <ConnectButton chainStatus='icon'/>
       </div>
     </nav>
   );

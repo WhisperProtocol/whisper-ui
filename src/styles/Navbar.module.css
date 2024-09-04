@@ -19,10 +19,10 @@
 .getKintoButton {
   margin-right: 10px; /* Adjust the margin as needed */
   padding: 11px 18px;
-  background-color: #4ec0e8;
-  /* background-color: #f2f7ff; */
-  color: black;
-  border: none;
+  /* background-color: #4ec0e8; */
+  background-color: #f2f7ff;
+  color: #27282c;
+  border: 1px solid #3b3c41;
   border-radius: 15px;
   cursor: pointer;
   font-size: 15px; /* Increase the font size */
@@ -31,7 +31,7 @@
 }
 
 .getKintoButton:hover {
-  background-color: #3b8ab9; /* Adjust the hover color as needed */
+  background-color: #c9ccce; /* Adjust the hover color as needed */
   transform: scale(1.05); /* Slightly scale up the button on hover */
 }
 
