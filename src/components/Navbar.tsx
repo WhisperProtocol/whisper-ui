@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../styles/Navbar.module.css';
+import styles from './styles/Navbar.module.css';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const Navbar = () => {
