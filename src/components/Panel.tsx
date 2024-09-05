@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../styles/Panel.module.css';
+import styles from './styles/Panel.module.css';
 
 const Panel = () => {
   const [isDeposit, setIsDeposit] = useState(true);
