@@ -70,19 +70,19 @@
   }
 }
 
-.depositButton {
-  height: 2.8rem;
-  width: 11.8rem;
-  font-size: .8rem;
-  background-color: #d1def9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-  top: 6rem;
-  left: 10rem;
-}
+// .whisperButton {
+//   height: 2.8rem;
+//   width: 11.8rem;
+//   font-size: .8rem;
+//   background-color: #d1def9;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   cursor: pointer;
+//   position: relative;
+//   top: 6rem;
+//   left: 10rem;
+// }
 
 .priceContainer {
   position: absolute;
@@ -99,4 +99,66 @@
     font-size: 0.6rem;
     color: #C2C2C2;
   }
+}
+
+.whisperButton {
+  appearance: none;
+  background-color: #FFFFFF;
+  border-width: 0;
+  box-sizing: border-box;
+  color: #1d97c4;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Clarkson,Helvetica,sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1em;
+  margin: 0;
+  opacity: 1;
+  outline: 0;
+  padding: 1em 2em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-rendering: geometricprecision;
+  text-transform: uppercase;
+  transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1),background-color 100ms cubic-bezier(.694, 0, 0.335, 1),color 100ms cubic-bezier(.694, 0, 0.335, 1);
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  border: 3px solid #1d97c4;
+  white-space: nowrap;
+  top: 6rem;
+  left: 10rem;
+}
+
+.whisperButton:before {
+  animation: opacityFallbackOut .5s step-end forwards;
+  backface-visibility: hidden;
+  background-color: #d4fffb;
+  clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: translateZ(0);
+  transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+  width: 100%;
+}
+
+.whisperButton:hover:before {
+  animation: opacityFallbackIn 0s step-start forwards;
+  clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+}
+
+.whisperButton:after {
+  background-color: #FFFFFF;
+}
+
+.whisperButton span {
+  z-index: 1;
+  position: relative;
 }

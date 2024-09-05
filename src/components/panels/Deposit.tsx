@@ -51,7 +51,9 @@ const DepositCard = () => {
             </div>
           </div>
           <form action="#">
-            <button className={styles.depositButton}>BUY NOW</button>
+            <button className={styles.whisperButton}>
+              <span>Whisper In</span>
+            </button>
           </form>
         </div>
         <div className={styles.priceContainer}>
