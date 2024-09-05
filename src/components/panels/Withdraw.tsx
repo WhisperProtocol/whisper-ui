@@ -1,24 +1,24 @@
 import React from "react";
-import styles from "../styles/Deposit.module.scss";
+import styles from "../styles/Withdraw.module.scss";
 import radioStyles from "../styles/RadioButtons.module.scss";
 
-const DepositCard = () => {
+const WithdrawCard = () => {
   return (
     <div id="page" className={styles.page}>
       <div id="main" className={styles.main}>
         <div className={styles.productContainer}></div>
         <div className={styles.card}>
-          <h1>ETH</h1>
+          <h1>Withdraw ETH</h1>
           <div className={radioStyles.radiogroup}>
             <div className={radioStyles.wrapper}>
               <input
                 className={radioStyles.state}
                 type="radio"
-                name="app"
-                id="a"
-                value="a"
+                name="withdraw"
+                id="w1"
+                value="w1"
               />
-              <label className={radioStyles.label} htmlFor="a">
+              <label className={radioStyles.label} htmlFor="w1">
                 <div className={radioStyles.indicator}></div>
                 <span className={radioStyles.text}>0.001 ETH</span>
               </label>
@@ -27,11 +27,11 @@ const DepositCard = () => {
               <input
                 className={radioStyles.state}
                 type="radio"
-                name="app"
-                id="b"
-                value="b"
+                name="withdraw"
+                id="w2"
+                value="w2"
               />
-              <label className={radioStyles.label} htmlFor="b">
+              <label className={radioStyles.label} htmlFor="w2">
                 <div className={radioStyles.indicator}></div>
                 <span className={radioStyles.text}>0.005 ETH</span>
               </label>
@@ -40,29 +40,29 @@ const DepositCard = () => {
               <input
                 className={radioStyles.state}
                 type="radio"
-                name="app"
-                id="c"
-                value="c"
+                name="withdraw"
+                id="w3"
+                value="w3"
               />
-              <label className={radioStyles.label} htmlFor="c">
+              <label className={radioStyles.label} htmlFor="w3">
                 <div className={radioStyles.indicator}></div>
                 <span className={radioStyles.text}>&nbsp;0.01 ETH</span>
               </label>
             </div>
           </div>
           <form action="#">
-            <button className={styles.whisperButton}>
-              <span>Whisper In</span>
+            <button className={styles.EchoButton}>
+              <span>Withdraw</span>
             </button>
           </form>
         </div>
-        <div className={styles.priceContainer}>
+        {/* <div className={styles.priceContainer}>
           <strong>149,95 €</strong>
           <small>Inc. shipping & tax</small>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
-export default DepositCard;
+export default WithdrawCard;
