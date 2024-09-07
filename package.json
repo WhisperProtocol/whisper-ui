@@ -12,6 +12,7 @@
     "@tanstack/react-query": "^5.51.11",
     "kinto-web-sdk": "^1.0.2",
     "next": "^14.2.3",
+    "next-transpile-modules": "^10.0.1",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "sass": "^1.78.0",
