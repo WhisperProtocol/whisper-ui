@@ -20,9 +20,9 @@
   margin-right: 10px; /* Adjust the margin as needed */
   padding: 11px 18px;
   /* background-color: #4ec0e8; */
-  background-color: #d1edf9;
-  color: #27282c;
-  border: 1px solid #3b3c41;
+  background-color: #0a0317;
+  color: #d0d3de;
+  border: 2px solid #d0d3de;
   border-radius: 15px;
   cursor: pointer;
   font-size: 15px; /* Increase the font size */
@@ -31,7 +31,8 @@
 }
 
 .getKintoButton:hover {
-  background-color: #c9ccce; /* Adjust the hover color as needed */
+  background-color: #d0d3de; /* Adjust the hover color as needed */
+  color: #0a0317;
   transform: scale(1.05); /* Slightly scale up the button on hover */
 }
 
@@ -42,11 +43,11 @@
 .kycButtonEnabled {
   margin-left: 10px;
   margin-right: 10px;
-  padding: 8px 14px; /* Adjust padding for a sleeker look */
+  padding: 11px 18px; /* Adjust padding for a sleeker look */
   background-color: #3b3c41; /* Slightly darker background for more contrast */
   color: #e1e1e1; /* Softer white for text */
   border-radius: 12px; /* Reduce border-radius for a more subtle tag shape */
-  font-size: 18px; /* Slightly smaller font size for a refined appearance */
+  font-size: 15px; /* Slightly smaller font size for a refined appearance */
   font-weight: 500; /* Make text semi-bold */
   border: 1px solid #5a5a5a; /* Add a subtle border to define the tag */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Add a subtle shadow for depth */
@@ -56,4 +57,18 @@
 .kycButtonEnabled:hover {
   background-color: #52545a; /* Darken background on hover */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Intensify shadow on hover */
+}
+
+.kycToggle {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #60e3a2;
+}
+
+.kycToggle input {
+  margin-right: 5px;
+  cursor: pointer;
 }

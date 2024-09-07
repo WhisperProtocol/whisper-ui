@@ -7,6 +7,7 @@ import { WagmiProvider } from 'wagmi';
 import { lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 
 import { config } from '../wagmi';
+import { KycProvider } from '../context/KycContext';
 
 const client = new QueryClient();
 
@@ -22,7 +23,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             accentColorForeground: '#1a1a1a',
           })}
         >
-          <Component {...pageProps} />
+          <KycProvider>
+            <Component {...pageProps} />
+          </KycProvider>
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
