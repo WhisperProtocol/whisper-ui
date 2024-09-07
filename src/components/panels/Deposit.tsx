@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import styles from "../styles/Deposit.module.scss";
 import radioStyles from "../styles/RadioButtons.module.scss";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
-import abi from "../../utils/poolEthAbi.json";
+import abi from "../../utils/abis/poolEthAbi.json";
 import contractAddress from "../../utils/contractAddresses.json";
 import { parseEther } from "viem";
+import { useKyc } from '../../context/KycContext';
 
 const DepositCard = () => {
+  const { isKintoKycEnabled } = useKyc();
   // const account = useAccount();
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +40,7 @@ const DepositCard = () => {
       console.log("Calling writeContract with amount:", depositAmount);
       await writeContract({
         abi,
-        address: `${contractAddress.poolETH2}` as `0x${string}`,
+        address: `${contractAddress.poolETH}` as `0x${string}`,
         functionName: "Deposit",
         value: parsedAmount,
       });
@@ -109,7 +111,7 @@ const DepositCard = () => {
             <button
               className={`${styles.whisperButton} ${isPending ? styles.loading : ''}`}
               onClick={handleDeposit}
-              disabled={isPending}
+              disabled={isPending || !isKintoKycEnabled}
             >
               {isPending ? <span className={styles.loader}></span> : <span>Whisper In</span>}
             </button>
