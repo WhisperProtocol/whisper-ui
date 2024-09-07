@@ -70,20 +70,6 @@
   }
 }
 
-// .whisperButton {
-//   height: 2.8rem;
-//   width: 11.8rem;
-//   font-size: .8rem;
-//   background-color: #d1def9;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   cursor: pointer;
-//   position: relative;
-//   top: 6rem;
-//   left: 10rem;
-// }
-
 .priceContainer {
   position: absolute;
   bottom: .6rem;
@@ -130,8 +116,8 @@
   vertical-align: baseline;
   border: 3px solid #1d97c4;
   white-space: nowrap;
-  top: 6rem;
-  right: 10rem;
+  top: 9.5rem;
+  right: 11rem;
 }
 
 .EchoButton:before {
@@ -161,4 +147,50 @@
 .EchoButton span {
   z-index: 1;
   position: relative;
+}
+
+.inputWrapper {
+  position: relative;
+  line-height:14px;
+  margin: 20px 16px;
+  display:inline-block;
+
+  label {
+    color: #312e2e;
+    font-size: 11px;
+    text-transform: uppercase;
+    position:absolute;
+    z-index:2;
+    left:20px;
+    top:14px;
+    padding:0 2px;
+    pointer-events:none;
+    background: #e3f0f3;
+    transition:transform 100ms ease;
+    transform:translateY(-20px);
+  }
+
+  input {
+    font-size:13px;
+    color:#555;
+    outline:none;
+    border:2px solid #bbb;
+    padding:10px 19px;
+    border-radius:20px;
+    position:relative;
+    background-color: #e3f0f3;
+    
+    &:invalid + label {
+      transform: translateY(0);
+    }
+    
+    &:focus {
+      border-color: #4ebfe8c3;
+      
+      & + label {
+        color: #4ebfe8c3;
+        transform: translateY(-20px);
+      }
+    }
+  }
 }

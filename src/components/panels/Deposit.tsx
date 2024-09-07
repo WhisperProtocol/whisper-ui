@@ -67,7 +67,7 @@ const DepositCard = () => {
       console.log("Calling writeContract with amount:", depositAmount);
       await writeContract({
         abi,
-        address: `${contractAddress.poolETH}` as `0x${string}`,
+        address: contractAddress.poolETH as `0x${string}`,
         functionName: "Deposit",
         args: [commitment],
         value: parsedAmount,
