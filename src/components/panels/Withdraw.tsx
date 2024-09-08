@@ -3,8 +3,8 @@ import styles from "../styles/Withdraw.module.scss";
 import { BaseError, useAccount, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { ethers } from "ethers";
 import contractABI from "../../utils/abis/whisper.json"
-import contractAddress from "../../utils/contractAddresses.json"
 import utils from "../../helpers/utilities";
+import { getChainConfig } from "../../utils/chainConfig";
 
 const contractInterface = new ethers.utils.Interface(contractABI);
 
@@ -13,6 +13,8 @@ const WithdrawCard = () => {
   const account = useAccount()
   const [inputValue, setInputValue] = useState("");
   const { data: hash, error: contractError, isPending, writeContract} = useWriteContract();
+
+  const chainConfig = getChainConfig(account.chainId as number || 17000);
   
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -25,6 +27,8 @@ const WithdrawCard = () => {
       alert("Please enter a proof to withdraw");
       return;
     }
+
+    const contractAddress = chainConfig.contractAddress;
 
     try {
       const proofString = inputValue;
@@ -69,7 +73,7 @@ const WithdrawCard = () => {
 
       await writeContract({
         abi: contractABI,
-        address: contractAddress.whisper as `0x${string}`,
+        address: contractAddress as `0x${string}`,
         functionName: "withdraw",
         args: callInputs,
       })
