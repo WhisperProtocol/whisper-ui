@@ -3,15 +3,16 @@ import styles from "../styles/Deposit.module.scss";
 import radioStyles from "../styles/RadioButtons.module.scss";
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt, BaseError } from "wagmi";
 import abi from "../../utils/abis/whisper.json";
-import contractAddress from "../../utils/contractAddresses.json";
 import { parseEther } from "viem";
 import { useKyc } from '../../context/KycContext';
 import { ethers } from "ethers";
 import utilities from "../../helpers/utilities"
 import wc from "../../utils/circuit/witness_calculator";
+import { getChainConfig } from "../../utils/chainConfig";
 
 const DepositCard = () => {
   const { isKintoKycEnabled } = useKyc();
+  const { chain } = useAccount();
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [proofElements, updateProofElements] = useState<string | null>(null);
@@ -21,6 +22,10 @@ const DepositCard = () => {
   const [nullifier, setNullifier] = useState<string | null>(null);
   const [commitment, setCommitment] = useState<string | null>(null);
   const [nullifierHash, setNullifierHash] = useState<string | null>(null);
+
+  const chainConfig = getChainConfig(chain?.id as number || 17000);
+
+  const symbol = chainConfig?.symbol;
 
   // Write contract
   const { data: hash, error: contractError, isPending, writeContract } = useWriteContract();
@@ -33,14 +38,18 @@ const DepositCard = () => {
       return;
     }
 
-    let depositAmount = "0";
-    if (selectedValue === "a") {
-      depositAmount = "0.0011";
-    } else if (selectedValue === "b") {
-      depositAmount = "0.0051";
-    } else if (selectedValue === "c") {
-      depositAmount = "0.0101";
-    }
+    // let depositAmount = "0";
+    // if (selectedValue === "a") {
+    //   depositAmount = "0.0011";
+    // } else if (selectedValue === "b") {
+    //   depositAmount = "0.0051";
+    // } else if (selectedValue === "c") {
+    //   depositAmount = "0.0101";
+    // }
+
+    const depositAmount = chainConfig.depositValues[selectedValue];
+
+    const contractAddress = chainConfig.contractAddress;
 
     const secret = ethers.BigNumber.from(ethers.utils.randomBytes(32)).toString();
     const nullifier = ethers.BigNumber.from(ethers.utils.randomBytes(32)).toString();
@@ -68,7 +77,7 @@ const DepositCard = () => {
       console.log("Calling writeContract with amount:", depositAmount);
       await writeContract({
         abi,
-        address: contractAddress.whisper as `0x${string}`,
+        address: contractAddress as `0x${string}`,
         functionName: "deposit",
         args: [commitment],
         value: parsedAmount,
@@ -155,7 +164,7 @@ const DepositCard = () => {
                   />
                   <label className={radioStyles.label} htmlFor="a">
                     <div className={radioStyles.indicator}></div>
-                    <span className={radioStyles.text}>0.001 ETH</span>
+                    <span className={radioStyles.text}>{chainConfig.depositValues["a"]} {symbol}</span>
                   </label>
                 </div>
                 <div className={radioStyles.wrapper}>
@@ -169,7 +178,7 @@ const DepositCard = () => {
                   />
                   <label className={radioStyles.label} htmlFor="b">
                     <div className={radioStyles.indicator}></div>
-                    <span className={radioStyles.text}>0.005 ETH</span>
+                    <span className={radioStyles.text}>{chainConfig.depositValues["b"]} {symbol}</span>
                   </label>
                 </div>
                 <div className={radioStyles.wrapper}>
@@ -183,7 +192,7 @@ const DepositCard = () => {
                   />
                   <label className={radioStyles.label} htmlFor="c">
                     <div className={radioStyles.indicator}></div>
-                    <span className={radioStyles.text}>&nbsp;0.01 ETH</span>
+                    <span className={radioStyles.text}>&nbsp;{chainConfig.depositValues["c"]} {symbol}</span>
                   </label>
                 </div>
               </div>
@@ -203,10 +212,10 @@ const DepositCard = () => {
             </button>
           )}
         </div>
-        <div className={styles.priceContainer}>
+        {/* <div className={styles.priceContainer}>
           <strong>149,95 €</strong>
           <small>Inc. shipping & tax</small>
-        </div>
+        </div> */}
       </div>
     </div>
   );
