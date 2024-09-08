@@ -10,6 +10,24 @@ const utils = {
             prePadding += "0";
         }
         return prePadding + r;
+    },
+
+    BigNumberToDecimal: (bn) => {
+        return ethers.BigNumber.from(bn).toString();
+    },
+
+    BigNumber256toHex: (n) => {
+        let nstr = BigInt(n).toString(16);
+        while(nstr.length < 64){ nstr = "0" + nstr; }
+        nstr = `0x${nstr}`;
+        return nstr;
+    },
+
+    reverseCoordinate: (p) => {
+        let r = [0, 0];
+        r[0] = p[1];
+        r[1] = p[0];
+        return r;
     }
 }
 
