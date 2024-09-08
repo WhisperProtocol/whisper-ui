@@ -23,6 +23,16 @@ export const chainConfigs: { [chainId: number]: ChainConfig } = {
         c: "0.00001",
     }, // Rootstock Testnet
     symbol: "tRBTC"
+  },
+
+  2810: {
+    contractAddress: "0x816B0048683588D04C58e5b355Cb8C1Cabc3ae56",
+    depositValues: {
+        a: "0.001",
+        b: "0.005",
+        c: "0.01",
+    },
+    symbol: "ETH"
   }
 }
 
