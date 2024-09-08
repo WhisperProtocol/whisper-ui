@@ -5,10 +5,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { createKintoSDK, KintoAccountInfo } from 'kinto-web-sdk';
 import { createPublicClient, defineChain, getContract, http } from 'viem';
 import kycABI from "../utils/abis/kycAbi.json";
-import poolAbi from "../utils/abis/poolEthAbi.json"
 import { useAccount, useReadContract } from 'wagmi';
-import contractAddreses from '../utils/contractAddresses.json'
-import { hardhat } from 'viem/chains';
 import { useKyc } from '../context/KycContext';
 
 // Define the Kinto chain
