@@ -32,7 +32,7 @@ export const chainConfigs: { [chainId: number]: ChainConfig } = {
         b: "0.005",
         c: "0.01",
     },
-    symbol: "ETH"
+    symbol: "ETH (Morph)"
   }
 }
 
