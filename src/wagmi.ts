@@ -8,7 +8,8 @@ import {
   optimismSepolia,
   baseSepolia,
   sepolia,
-  hardhat
+  hardhat,
+  holesky
 } from 'wagmi/chains';
 
 const Inco = {
@@ -27,6 +28,7 @@ export const config = getDefaultConfig({
   appName: 'RainbowKit App',
   projectId: 'YOUR_PROJECT_ID',
   chains: [
+    holesky,
     baseSepolia,
     sepolia,
     arbitrumSepolia,

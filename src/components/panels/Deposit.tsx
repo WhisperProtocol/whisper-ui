@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Deposit.module.scss";
 import radioStyles from "../styles/RadioButtons.module.scss";
-import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
-import abi from "../../utils/abis/poolEthAbi.json";
+import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt, BaseError } from "wagmi";
+import abi from "../../utils/abis/whisper.json";
 import contractAddress from "../../utils/contractAddresses.json";
 import { parseEther } from "viem";
 import { useKyc } from '../../context/KycContext';
@@ -17,14 +17,13 @@ const DepositCard = () => {
   const [proofElements, updateProofElements] = useState<string | null>(null);
   const [showCopyButton, setShowCopyButton] = useState(false);
   const [isTransactionConfirmed, setIsTransactionConfirmed] = useState(false);
+  const [secret, setSecret] = useState<string | null>(null);
+  const [nullifier, setNullifier] = useState<string | null>(null);
+  const [commitment, setCommitment] = useState<string | null>(null);
+  const [nullifierHash, setNullifierHash] = useState<string | null>(null);
 
   // Write contract
-  const { data: hash, isPending, writeContract } = useWriteContract();
-
-  // Wait for transaction receipt
-  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
-    hash,
-  });
+  const { data: hash, error: contractError, isPending, writeContract } = useWriteContract();
 
   const handleDeposit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -36,7 +35,7 @@ const DepositCard = () => {
 
     let depositAmount = "0";
     if (selectedValue === "a") {
-      depositAmount = "1.0001";
+      depositAmount = "0.0011";
     } else if (selectedValue === "b") {
       depositAmount = "0.0051";
     } else if (selectedValue === "c") {
@@ -60,6 +59,8 @@ const DepositCard = () => {
     const commitment = r[1];
     const nullifierHash = r[2];
 
+    console.log(commitment)
+
     try {
       const parsedAmount = parseEther(depositAmount);
       console.log("Parsed Amount:", parsedAmount);
@@ -67,33 +68,46 @@ const DepositCard = () => {
       console.log("Calling writeContract with amount:", depositAmount);
       await writeContract({
         abi,
-        address: `${contractAddress.poolETH}` as `0x${string}`,
-        functionName: "Deposit",
+        address: contractAddress.whisper as `0x${string}`,
+        functionName: "deposit",
         args: [commitment],
         value: parsedAmount,
       });
 
-      console.log("Transaction Hash:", hash);
-
-      const proofElements = {
-        nullifierHash: `${nullifierHash}`,
-        secret: secret,
-        nullifier: nullifier,
-        commitment: `${commitment}`,
-        txHash: hash,
-      };
-
-      console.log("Proof Elements:", proofElements);
-
-      updateProofElements(btoa(JSON.stringify(proofElements)));
-
-      setIsTransactionConfirmed(false)
-
+        
+      setSecret(secret);
+      setNullifier(nullifier);
+      setCommitment(`${commitment}`);
+      setNullifierHash(`${nullifierHash}`)
     } catch (error) {
-      console.error("Error parsing deposit amount:", error);
-      setError("Failed to parse deposit amount. Please try again.");
+        console.error(error);
+        // setError("Failed to parse deposit amount. Please try again.");
     }
   };
+
+  // Wait for transaction receipt
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+    hash,
+  });
+
+  if (isConfirmed && !proofElements) {
+    const proofElements = {
+      nullifierHash: nullifierHash,
+      secret: secret,
+      nullifier: nullifier,
+      commitment: commitment,
+      txHash: hash,
+    }
+
+    console.log(proofElements);
+    updateProofElements(btoa(JSON.stringify(proofElements)));
+
+    // Clear the values after setting the proof
+    setSecret(null);
+    setNullifier(null);
+    setCommitment(null);
+    setNullifierHash(null);
+  }
 
   const copyProof = () => {
     if (proofElements) {
@@ -121,6 +135,11 @@ const DepositCard = () => {
       <div id="main" className={styles.main}>
         <div className={styles.productContainer}></div>
         <div className={styles.card}>
+          {contractError && (
+            <div>
+              <p>Error: {(contractError as BaseError).shortMessage || contractError.message}</p>
+            </div>
+          )}
           {!showCopyButton ? (
             <>
               <h1>ETH</h1>
@@ -174,17 +193,15 @@ const DepositCard = () => {
                   onClick={handleDeposit}
                   disabled={isPending || !isKintoKycEnabled}
                 >
-                  {isPending ? <span className={styles.loader}></span> : <span>Whisper In</span>}
+                  {isPending || isConfirming ? <span className={styles.loader}></span> : <span>Whisper In</span>}
                 </button>
               </form>
-              {isConfirming && <div>Waiting for confirmation...</div>}
             </>
           ) : (
             <button className={styles.copyButton} onClick={copyProof}>
               Copy Proof
             </button>
           )}
-          {error && <p className={styles.error}>{error}</p>}
         </div>
         <div className={styles.priceContainer}>
           <strong>149,95 €</strong>

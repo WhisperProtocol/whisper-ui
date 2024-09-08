@@ -2,23 +2,53 @@
     {
         "inputs": [
             {
-                "internalType": "uint256",
-                "name": "_depositAmount",
-                "type": "uint256"
-            },
-            {
                 "internalType": "address",
-                "name": "_whisper",
+                "name": "_mimc5",
                 "type": "address"
             },
             {
                 "internalType": "address",
                 "name": "_verifier",
                 "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_depositAmount",
+                "type": "uint256"
             }
         ],
         "stateMutability": "nonpayable",
         "type": "constructor"
+    },
+    {
+        "inputs": [],
+        "name": "ReentrancyGuardReentrantCall",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "root",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256[10]",
+                "name": "hashPairings",
+                "type": "uint256[10]"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint8[10]",
+                "name": "hashDirections",
+                "type": "uint8[10]"
+            }
+        ],
+        "name": "Deposit",
+        "type": "event"
     },
     {
         "inputs": [
@@ -28,7 +58,7 @@
                 "type": "uint256"
             }
         ],
-        "name": "Deposit",
+        "name": "deposit",
         "outputs": [],
         "stateMutability": "payable",
         "type": "function"
@@ -60,67 +90,16 @@
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_address",
-                "type": "address"
-            }
-        ],
-        "name": "isKYC",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "kycHolders",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
         "inputs": [],
-        "name": "owner",
+        "name": "nextLeafIndex",
         "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_commitment",
+                "name": "",
                 "type": "uint256"
             }
         ],
-        "name": "safeDeposit",
-        "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -132,24 +111,6 @@
             }
         ],
         "name": "setFees",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_user",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "_KYC",
-                "type": "address"
-            }
-        ],
-        "name": "setKYC",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -179,7 +140,7 @@
         ],
         "name": "withdraw",
         "outputs": [],
-        "stateMutability": "nonpayable",
+        "stateMutability": "payable",
         "type": "function"
     }
 ]
